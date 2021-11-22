@@ -52,6 +52,16 @@ function init() {
     var axes = new THREE.AxesHelper(5);
     scene.add(axes);
 
+    Angulo = prompt("Digite el ángulo que desea: " );//Crear cuadro de texto emergente
+    if(Angulo != null)
+    {
+    alert("Su angulo es: "+ Angulo);
+    }   
+    else 
+    {
+    alert("No ingreso angulo del cubo :(");
+    }
+
     Cubo = [];   // Definir un array unidimensional
     Cubo.push(cubo(dim, 0xE59866, 'Basic', false)); //Naranja
     Cubo.push(cubo(dim, 0x1CFF00, 'Basic', false)); //Verde
@@ -60,45 +70,33 @@ function init() {
     //Cubo Naranja
     Cubo[0].position.set(0, 0, 0);//posicion inicial origen
     scene.add(Cubo[0]);
-    Cubo[0].position.set(0.5, 0.5, 0.5); // movimiento  posicion y = 0.5
+    Cubo[0].position.set(0.7, 0.5, 0.7); // movimiento  posicion y = 0.5
     scene.add(Cubo[0]);
 
     //Cubo verde
-    Cubo[1].position.set(300, 0, 0);//posicion inicial origen
+    Cubo[1].position.set(0, 0, 0);//posicion inicial origen
     scene.add(Cubo[1]);
-     Cubo[1].translateX ( 0.5 ); // movimiento  en el eje X
+     Cubo[1].translateX ( 0.7 ); // movimiento  en el eje X
      Cubo[1].translateY ( 1.4 ); // movimiento e en el eje Y = 1.5
-     Cubo[1].translateZ ( 0.5 ); // movimiento  en el eje Z
+     Cubo[1].translateZ ( 0.7 ); // movimiento  en el eje Z
      Cubo[1].scale.set(0.75,0.75,0.75);
-     Cubo[1].rotateY(45);
     scene.add(Cubo[1]);
 
     //Cubo Azul
     Cubo[2].position.set(0, 0, 0);//posicion inicial origen
     scene.add(Cubo[2]);
-    Cubo[2].position.set(0.5, 2.0, 0.5); // movimiento  posicion y = 2.5
+    Cubo[2].position.set(0.7, 2.0, 0.7); // movimiento  posicion y = 2.5
     Cubo[2].scale.set(0.5,0.5,0.5);
     scene.add(Cubo[2]);
+    Radianes=(Angulo)*((2*Math.PI)/(360)); //cambiar de grados a radianes
 
-    for(i=0;i<3;i++){
-        cubo[i].translateX*(dim/2);
-        cubo[i].translateY*(dim/2);
-        cubo[i].translateZ*(dim/2);
-    }
-
-    //Transformaciones de escalado y translacion final sobre el eje y
-    for(i=0;i<3;i++){
-        if(i==1 || i==2){
-            escala=1/(2*i);//Escala a la mitad del cubo anterior
-            unidades=dim/2+dim/4+((dim/2+dim/4)/2)*(i-1);
-            cubo[i].scale.set(escala, escala,escala);
-            cubo[i].translateY(unidades);
+    for(i=0;i<3;i++)//Rotar cubo 0 y 2 45 grados en su eje
+    {
+        if(i==0 || i==1 || i==2)
+        {
+            Cubo[i].rotateY(Radianes);//rotar todos los cubos segun los grados o radianes introducidos 
         }
     }
-
-    //rotacion de los cubos 1 y 3
-    cubo[0].rotateY(angulo);
-    cubo[2].rotateY(angulo);
 
     // add the output of the renderer to the html element
     document.getElementById("webgl-output").appendChild(renderer.domElement);
